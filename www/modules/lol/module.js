@@ -1,0 +1,1 @@
+var lolapp = angular.module('LolModule', []);

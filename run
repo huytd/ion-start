@@ -1,0 +1,24 @@
+#!/bin/bash
+if [[ $1 =  "-i" ]]
+then
+    echo "Running on device..."
+    echo ""
+    echo "Patching splash screen..."
+    cp res/splash/Default~iphone.png platforms/ios/ionstart/Resources/splash/Default~iphone.png
+    cp res/splash/Default@2x~iphone.png platforms/ios/ionstart/Resources/splash/Default@2x~iphone.png
+    cp res/splash/Default-568h@2x~iphone.png platforms/ios/ionstart/Resources/splash/Default-568h@2x~iphone.png
+    echo ""
+    ionic build ios
+    ionic run ios
+else
+    echo "Running on emulator..."
+    echo "To run on device: ./run -i"
+    echo ""
+    echo "Patching splash screen..."
+    cp res/splash/Default~iphone.png platforms/ios/ionstart/Resources/splash/Default~iphone.png
+    cp res/splash/Default@2x~iphone.png platforms/ios/ionstart/Resources/splash/Default@2x~iphone.png
+    cp res/splash/Default-568h@2x~iphone.png platforms/ios/ionstart/Resources/splash/Default-568h@2x~iphone.png
+    echo ""
+    ionic build ios
+    ionic emulate ios --target="iPhone (Retina 4-inch)"
+fi

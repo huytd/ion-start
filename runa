@@ -1,0 +1,19 @@
+#!/bin/bash
+if [[ $1 =  "-u" ]] 
+then 
+   echo "Uninstalling previous version... "
+   adb uninstall com.king.ionstart
+else
+   echo "Running app without clearing data... "
+fi
+echo "Patching splash screen..."
+cp res/splash_android/splash.png platforms/android/res/drawable/splash.png
+cp res/splash_android/splash.png platforms/android/res/drawable-mdpi/splash.png
+cp res/splash_android/splash.png platforms/android/res/drawable-hdpi/splash.png
+cp res/splash_android/splash.png platforms/android/res/drawable-xhdpi/splash.png
+cp res/splash_android/splash.png platforms/android/res/drawable-xxhdpi/splash.png
+cp res/splash_android/CordovaApp.java platforms/android/src/com/king/ionstart/CordovaApp.java
+cp res/translate/strings.xml platforms/android/res/values/strings.xml
+echo ""
+ionic build android
+ionic run android

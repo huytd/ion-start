@@ -1,0 +1,19 @@
+rm APK/*.apk
+ionic build --release android
+echo "PASSWORD FOR KEYSTORE: 123456"
+cp platforms/android/ant-build/CordovaApp-release-unsigned.apk tmp.apk
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore appsign.keystore tmp.apk your-alias-name
+now="$(date +'%d-%m-%Y')"
+echo "Finish keysign"
+zipalign -v 4 tmp.apk APK/APK-release-$now.apk
+rm -rf tmp.apk
+echo ""
+echo "Build successful! Output at: APK/APK-release-$now.apk"
+if [[ $1 =  "-i" ]]
+then
+   echo "Uninstalling previous version... "
+   adb uninstall com.king.ionstart
+   echo "Installing new version... "
+   adb install APK/APK-release-$now.apk
+   echo "DONE!"
+fi
